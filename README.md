@@ -9,7 +9,8 @@
 
 ## 入门视频 ##
 
-    腾讯视频播放链接地址：https://v.qq.com/x/page/t0630doxoaz.html
+    weixin4j入门：https://v.qq.com/x/page/t0630doxoaz.html
+    weixin4j-spring-boot入门：https://v.qq.com/x/page/e0764lyx518.html
 
 ##更新日志
 
