@@ -14,6 +14,17 @@
 
 ##更新日志
 
+2018年09月05日
+
+```
+weixin4j-spring-boot-starter-2.0.0
+1.新增微信支付组件引入
+2.新增WeixinTemplate
+3.新增WeixinPayTemplate
+```
+
+##更新日志
+
 2018年08月16日
 
     weixin4j-spring-boot-starter-1.0.0
