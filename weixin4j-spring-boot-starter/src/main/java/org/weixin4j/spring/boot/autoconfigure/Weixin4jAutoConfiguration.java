@@ -1,8 +1,8 @@
 /*
- * Œ¢–≈π´÷⁄∆ΩÃ®(JAVA) SDK
+ * ÂæÆ‰ø°ÂÖ¨‰ºóÂπ≥Âè∞(JAVA) SDK
  *
  * Copyright (c) 2014, Ansitech Network Technology Co.,Ltd All rights reserved.
- * 
+ *
  * http://www.weixin4j.org/spring/boot/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,22 +26,19 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.weixin4j.WeixinPayConfig;
 import org.weixin4j.factory.WeixinFactory;
 import org.weixin4j.loader.DefaultTicketLoader;
 import org.weixin4j.loader.DefaultTokenLoader;
 import org.weixin4j.loader.ITicketLoader;
 import org.weixin4j.loader.ITokenLoader;
-import org.weixin4j.spi.DefaultEventMessageHandler;
-import org.weixin4j.spi.DefaultNormalMessageHandler;
-import org.weixin4j.spi.IEventMessageHandler;
-import org.weixin4j.spi.IMessageHandler;
-import org.weixin4j.spi.INormalMessageHandler;
+import org.weixin4j.spi.*;
 import org.weixin4j.spring.MessageFactoryBean;
 import org.weixin4j.spring.WeixinFactoryBean;
 import org.weixin4j.spring.WeixinTemplate;
 
 /**
- * Weixin4j◊‘∂Ø◊¢≤·≈‰÷√¿‡
+ * Weixin4jËá™Âä®Ê≥®ÂÜåÈÖçÁΩÆÁ±ª
  *
  * @author yangqisheng
  * @since 1.0.0
@@ -56,40 +53,38 @@ public class Weixin4jAutoConfiguration {
     private final Weixin4jProperties properties;
 
     public Weixin4jAutoConfiguration(Weixin4jProperties properties) {
-        if (logger.isDebugEnabled()) {
-            System.out.println("init Weixin4jAutoConfiguration, weixin4j properties " + (properties == null ? " is setting" : "not set"));
-        }
+        System.out.println("weixin4j-starter: init Weixin4jAutoConfiguration, weixin4j properties " + (properties != null ? "is setting" : "not set"));
         this.properties = properties;
     }
 
     @Bean
     @ConditionalOnMissingBean
     public ITokenLoader tokenLoader() {
-        if (logger.isDebugEnabled()) {
-            System.out.println("bean ITokenLoader loaded by default.");
-        }
+        System.out.println("weixin4j-starter: bean ITokenLoader loaded by default.");
         return new DefaultTokenLoader();
     }
 
     @Bean
     @ConditionalOnMissingBean
     public ITicketLoader ticketLoader() {
-        if (logger.isDebugEnabled()) {
-            System.out.println("bean ITicketLoader loaded by default.");
-        }
+        System.out.println("weixin4j-starter: bean ITicketLoader loaded by default.");
         return new DefaultTicketLoader();
     }
 
     @Bean
     @ConditionalOnMissingBean
     public WeixinFactory weixinFactory(ITokenLoader tokenLoader, ITicketLoader ticketLoader) throws Exception {
-        if (logger.isDebugEnabled()) {
-            System.out.println("bean WeixinFactory init.");
-        }
         WeixinFactoryBean factory = new WeixinFactoryBean();
         if (properties != null) {
             factory.setWeixinConfig(properties.getConfig());
-            factory.setWeixinPayConfig(properties.getPayConfig());
+            if (properties.getPayConfig() != null) {
+                WeixinPayConfig weixinPayConfig = new WeixinPayConfig();
+                weixinPayConfig.setPartnerId(properties.getPayConfig().getMchId());
+                weixinPayConfig.setPartnerKey(properties.getPayConfig().getMchKey());
+                weixinPayConfig.setCertPath(properties.getPayConfig().getCertPath());
+                weixinPayConfig.setCertSecret(properties.getPayConfig().getCertSecret());
+                factory.setWeixinPayConfig(weixinPayConfig);
+            }
         }
         factory.setTokenLoader(tokenLoader);
         factory.setTicketLoader(ticketLoader);
@@ -99,9 +94,7 @@ public class Weixin4jAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
     public WeixinTemplate weixinTemplate(WeixinFactory weixinFactory) {
-        if (logger.isDebugEnabled()) {
-            System.out.println("bean WeixinTemplate init.");
-        }
+        System.out.println("weixin4j-starter: bean WeixinTemplate init.");
         WeixinTemplate weixinTemplate = new WeixinTemplate(weixinFactory);
         return weixinTemplate;
     }
@@ -109,27 +102,21 @@ public class Weixin4jAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
     public INormalMessageHandler normalMessageHandler() {
-        if (logger.isDebugEnabled()) {
-            System.out.println("bean INormalMessageHandler loaded by default.");
-        }
+        System.out.println("weixin4j-starter: bean INormalMessageHandler loaded by default.");
         return new DefaultNormalMessageHandler();
     }
 
     @Bean
     @ConditionalOnMissingBean
     public IEventMessageHandler eventMessageHandler() {
-        if (logger.isDebugEnabled()) {
-            System.out.println("bean IEventMessageHandler loaded by default.");
-        }
+        System.out.println("weixin4j-starter: bean IEventMessageHandler loaded by default.");
         return new DefaultEventMessageHandler();
     }
 
     @Bean
     @ConditionalOnMissingBean
     public IMessageHandler messageFactoryBean(INormalMessageHandler normalMessageHandler, IEventMessageHandler eventMessageHandler) throws Exception {
-        if (logger.isDebugEnabled()) {
-            System.out.println("bean IMessageHandler loaded by default.");
-        }
+        System.out.println("weixin4j-starter: bean IMessageHandler loaded by default.");
         MessageFactoryBean factory = new MessageFactoryBean();
         factory.setNormalMessageHandler(normalMessageHandler);
         factory.setEventMessageHandler(eventMessageHandler);

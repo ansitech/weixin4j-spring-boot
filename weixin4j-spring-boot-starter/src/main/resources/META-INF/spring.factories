@@ -1,0 +1,4 @@
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+org.weixin4j.spring.boot.autoconfigure.Weixin4jAutoConfiguration,\
+org.weixin4j.spring.boot.autoconfigure.Weixin4jPayAutoConfiguration

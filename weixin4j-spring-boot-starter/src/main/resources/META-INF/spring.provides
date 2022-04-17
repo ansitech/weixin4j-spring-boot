@@ -1,1 +1,1 @@
-provides: weixin4j-spring-boot-autoconfigure,weixin4j,weixin4j-spring
+provides: weixin4j,weixin4j-pay

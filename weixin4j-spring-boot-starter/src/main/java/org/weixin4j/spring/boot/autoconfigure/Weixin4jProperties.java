@@ -1,8 +1,8 @@
 /*
- * Î¢ĞÅ¹«ÖÚÆ½Ì¨(JAVA) SDK
+ * å¾®ä¿¡å…¬ä¼—å¹³å°(JAVA) SDK
  *
  * Copyright (c) 2014, Ansitech Network Technology Co.,Ltd All rights reserved.
- * 
+ *
  * http://www.weixin4j.org/spring/boot/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,10 +22,10 @@ package org.weixin4j.spring.boot.autoconfigure;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 import org.weixin4j.WeixinConfig;
-import org.weixin4j.WeixinPayConfig;
+import org.weixin4j.pay.WeixinPayConfig;
 
 /**
- * Î¢ĞÅÅäÖÃ¶ÁÈ¡Àà
+ * å¾®ä¿¡é…ç½®è¯»å–ç±»
  *
  * @author yangqisheng
  * @since 1.0.0
@@ -34,21 +34,34 @@ import org.weixin4j.WeixinPayConfig;
 public class Weixin4jProperties {
 
     /**
-     * ÅäÖÃÇ°×º
+     * é…ç½®å‰ç¼€
      */
     public static final String WEIXINR4J_PREFIX = "weixin4j";
 
     /**
-     * Î¢ĞÅÅäÖÃ
+     * å¾®ä¿¡é…ç½®
      */
     @NestedConfigurationProperty
     private WeixinConfig config;
 
     /**
-     * Î¢ĞÅÖ§¸¶ÅäÖÃ
+     * å¾®ä¿¡æ”¯ä»˜é…ç½®
      */
     @NestedConfigurationProperty
     private WeixinPayConfig payConfig;
+
+    /**
+     * opensslå®‰è£…binç›®å½•
+     */
+    private String opensslPath;
+    /**
+     * rsa_public_key_pkcs1è¯ä¹¦æ–‡ä»¶åœ°å€
+     */
+    private String rsaPubKeyPkcs1;
+    /**
+     * rsa_public_key_pkcs8è¯ä¹¦æ–‡ä»¶åœ°å€
+     */
+    private String rsaPubKeyPkcs8;
 
     public WeixinConfig getConfig() {
         return config;
@@ -64,5 +77,29 @@ public class Weixin4jProperties {
 
     public void setPayConfig(WeixinPayConfig payConfig) {
         this.payConfig = payConfig;
+    }
+
+    public String getOpensslPath() {
+        return opensslPath;
+    }
+
+    public void setOpensslPath(String opensslPath) {
+        this.opensslPath = opensslPath;
+    }
+
+    public String getRsaPubKeyPkcs1() {
+        return rsaPubKeyPkcs1;
+    }
+
+    public void setRsaPubKeyPkcs1(String rsaPubKeyPkcs1) {
+        this.rsaPubKeyPkcs1 = rsaPubKeyPkcs1;
+    }
+
+    public String getRsaPubKeyPkcs8() {
+        return rsaPubKeyPkcs8;
+    }
+
+    public void setRsaPubKeyPkcs8(String rsaPubKeyPkcs8) {
+        this.rsaPubKeyPkcs8 = rsaPubKeyPkcs8;
     }
 }
